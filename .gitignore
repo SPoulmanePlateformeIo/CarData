@@ -131,3 +131,5 @@ dmypy.json
 # Custom
 Scripts/
 pyvenv.cfg
+etc/
+share/
