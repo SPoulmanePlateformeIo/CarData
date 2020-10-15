@@ -5,8 +5,8 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import pandas as pd
 
-df = pd.read_csv('data/carData.csv')
-print(df)
+car_data = pd.read_csv('data/carData.csv')
+print(car_data)
 
 app.layout = html.Div(('Hello Word!'))
 
