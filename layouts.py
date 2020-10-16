@@ -1,9 +1,18 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
+import numpy as np
 
 
 header = html.H1('Car Data Analysis')
+
+tab_contents = {
+    'SP': { 'name': 'Simple Plot' },
+    'LRC': { 'name': 'Linear Regression Comparison' },
+    'MLR': { 'name': 'Multivariate Linear Regression' },
+    'TC': { 'name': 'Times Comparison' },
+}
+menu = dcc.Tabs(id='menu')
 
 def get_simple_graph(data, title=''):
     return dcc.Graph(
@@ -64,7 +73,7 @@ def get_linreg_graph(data, dict_fittedline, title=''):
         }
     )
 
-def get_linreg_multi(data, coefs, intercept, title=''):
+def get_linreg_multi(data, linreg, title=''):
     plot_data = [go.Scatter3d(
         x=data['Year'],
         y=data['Kms_Driven'],
@@ -79,13 +88,13 @@ def get_linreg_multi(data, coefs, intercept, title=''):
     )]
     xmin, xmax = data['Year'].min(), data['Year'].max()
     ymin, ymax = data['Kms_Driven'].min(), data['Kms_Driven'].max()
+    vx=np.array([xmin, xmax, xmax, xmin])
+    vy=np.array([ymin, ymin, ymax, ymax])
+    vz=list(zip(vx,vy))
     plot_data += [go.Mesh3d(
-            x=[xmin, xmax, xmax, xmin],
-            y=[ymin, ymin, ymax, ymax],
-            z=[coefs[0]*xmin+coefs[1]*ymin+intercept,
-                coefs[0]*xmax+coefs[1]*ymin+intercept,
-                coefs[0]*xmax+coefs[1]*ymax+intercept,
-                coefs[0]*xmin+coefs[1]*ymax+intercept],
+            x=vx,
+            y=vy,
+            z=linreg.predict(vz),
             i=[0, 0],
             j=[1, 2],
             k=[2, 3],

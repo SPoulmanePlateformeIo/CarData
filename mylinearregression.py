@@ -21,7 +21,6 @@ class MyLinearRegression:
             v = np.var(X_)
             self._coef = (c / v)
             self._intercept = y.mean() - self._coef * X_.mean()
-            print(self._coef, self._intercept)
             return self._coef[1][0], self._intercept[0][1]
         # -- Multiple linear regression
         else: # DOES NOT WORK YET
