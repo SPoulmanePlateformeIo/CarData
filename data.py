@@ -42,11 +42,12 @@ time_linreg['MyLinearRegression'] = time() - time_start
 print(fittedline['MyLinearRegression'])
 
 car_data_transcat = pd.get_dummies(data=car_data, columns=['Transmission'])
-ans = compute_linreg_sklearn(car_data_transcat[['Year', 'Kms_Driven', 'Transmission_Automatic', 'Transmission_Manual']], car_data['Selling_Price'])
-fittedline['multivariate'] = (ans[0][0], ans[1])
+multivariate_reg = compute_linreg_sklearn(car_data_transcat[['Year', 'Kms_Driven']], car_data['Selling_Price'])
+print('multivreg:', multivariate_reg)
+#fittedline['multivariate'] = (multivariate_reg[0][1], multivariate_reg[1])
 
 test_multi_my = mlr.fit(car_data_transcat[['Year', 'Kms_Driven', 'Transmission_Automatic', 'Transmission_Manual']], car_data['Selling_Price'])
 #print('Test multi my: ', test_multi_my)
 
 #print("Time:", time_linreg)
-print("Fitted Line:", fittedline)
+#print("Fitted Line:", fittedline)
