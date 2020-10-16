@@ -1,5 +1,6 @@
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_table
 import plotly.graph_objs as go
 import numpy as np
 
@@ -114,3 +115,9 @@ def get_linreg_multi(data, linreg, title=''):
             )
         }
     )
+
+def get_times_table(table):
+    table_ = table.reset_index()
+    return dash_table.DataTable(id='data-times',
+        columns=[{'name':i, 'id':i} for i in table_.columns],
+        data=table_.to_dict('records'))
